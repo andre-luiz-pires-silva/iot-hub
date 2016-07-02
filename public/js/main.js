@@ -1,4 +1,4 @@
-angular.module('iot', ['ngRoute'])
+angular.module('iot', ['ngRoute', 'ngResource'])
   .config(function($routeProvider) {
 
     $routeProvider.when('/devices', {
