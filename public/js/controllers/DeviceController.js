@@ -9,8 +9,8 @@
           $scope.device = device;
         },
         function(erro) {
-          $scope.mensagem = {
-            texto: 'Não foi possível obter o Device.'
+          $scope.message = {
+            text: 'Não foi possível obter o Device.'
           };
           console.log(erro);
         }
@@ -22,13 +22,13 @@
     $scope.save = function() {
       $scope.device.$save()
         .then(function() {
-          $scope.mensagem = {texto: 'Salvo com sucesso'};
+          $scope.message = {text: 'Salvo com sucesso'};
           $scope.device = new Device();
         })
         .catch(function(erro){
-          $scope.mensagem = {texto: 'Não foi possível salvar'};
+          $scope.message = {text: 'Não foi possível salvar'};
           console.log(erro);
         });
-    };  
+    };
 
   });

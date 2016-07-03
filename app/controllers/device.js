@@ -39,9 +39,7 @@ module.exports = function() {
   };
 
   controller.saveDevice = function(req, res) {
-    console.log('save');
     var device = req.body;
-
     device = device._id ?
         update(device) :
         add(device);
@@ -50,14 +48,12 @@ module.exports = function() {
   };
 
   function add(newDevice) {
-    console.log('add');
     newDevice._id = ++ID_DEVICE_INC;
     devices.push(newDevice);
     return newDevice;
-  }
+  };
 
   function update(upDevice) {
-    console.log('update');
     devices = devices.map(function(device) {
         if(device._id == upDevice._id) {
           device = upDevice;
@@ -65,7 +61,6 @@ module.exports = function() {
         return device;
     });
     return upDevice;
-
   };
 
   return controller;

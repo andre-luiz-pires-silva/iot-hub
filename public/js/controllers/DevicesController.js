@@ -3,17 +3,17 @@ angular.module('iot').controller('DevicesController',
 
   $scope.filtro = '';
   $scope.devices = [];
-  $scope.mensagem = {texto: ''};
+  $scope.message = {'text': ''};
   var Device = $resource('/devices/:id');
 
   function getDevices() {
     Device.query(
       function(devices) {
         $scope.devices = devices;
-        $scope.mensagem = {};
+        $scope.message = {};
       },
       function(erro) {
-        $scope.mensagem = {texto: 'Não foi possível obter a lista'};
+        $scope.message = {text: 'Não foi possível obter a lista'};
         console.log(erro);
       }
     );
@@ -23,7 +23,7 @@ angular.module('iot').controller('DevicesController',
     Device.delete({id: device._id},
       getDevices,
       function(erro) {
-        $scope.mensagem = {texto: 'Não foi possível remover o contato'};
+        $scope.message = {text: 'Não foi possível remover o contato'};
         console.log(erro);
       }
     );
