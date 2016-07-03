@@ -16,5 +16,17 @@ angular.module('iot').controller('DevicesController',
       }
     );
   }
+
+  $scope.delete = function(device) {
+    Device.delete({id: device._id},
+      getDevices,
+      function(erro) {
+        console.log('Não foi possível remover o Device');
+        console.log(erro);
+      }
+    );
+  };
+
   getDevices();
+
 });

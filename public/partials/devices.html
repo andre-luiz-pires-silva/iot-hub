@@ -4,14 +4,19 @@
   </h1>
 </div>
 
-
 <button class="btn btn-primary" ng-click="incrementa()">
   Novo
 </button>
 
 <input ng-model="filtro" type="search" placeholder="parte do nome">
 
-<p>Devices cadastrados: {{devices.length}}</p>
+<p ng-show="devices.length">
+  Devices cadastrados: {{devices.length}}
+</p>
+
+<p class="text-info" ng-hide="devices.length">
+  Não há Devices cadastrados
+</p>
 
 <div class="table-responsive">
   <table class="table table-hover">
@@ -26,7 +31,7 @@
       </td>
       <td>{{device.name}}</td>
       <td class="text-center">
-        <button class="btn btn-warning">
+        <button ng-click="delete(device)" class="btn btn-warning">
           Remover
         </buttom>
       </td>

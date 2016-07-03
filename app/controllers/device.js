@@ -26,6 +26,15 @@ module.exports = function() {
       res.status(404).send('Device not found');
   }
 
+  controller.deleteDevice = function(req, res) {
+    var deviceId = req.params.id;
+
+    devices = devices.filter(function(device) {
+      return device._id != deviceId;
+    });
+
+    res.status(204).end();
+  }
 
   return controller;
 };

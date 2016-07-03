@@ -1,6 +1,12 @@
 // app/routes/device.js
 module.exports = function(app) {
   var controller = app.controllers.device;
-  app.get('/devices', controller.getDevices);
-  app.get('/devices/:id', controller.getDevice);
+
+  app.route('/devices')
+    .get(controller.getDevices);
+
+  app.route('/devices/:id')
+    .get(controller.getDevice)
+    .delete(controller.deleteDevice);
+
 };
