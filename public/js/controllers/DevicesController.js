@@ -1,10 +1,9 @@
 angular.module('iot').controller('DevicesController',
-  function($scope, $resource) {
+  function($scope, $resource, Device) {
 
   $scope.filtro = '';
   $scope.devices = [];
-  $scope.message = {'text': ''};
-  var Device = $resource('/devices/:id');
+  $scope.message = {'text': ''};  
 
   function getDevices() {
     Device.query(

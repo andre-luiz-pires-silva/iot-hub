@@ -1,7 +1,5 @@
   angular.module('iot').controller('DeviceController',
-  function($scope, $routeParams, $resource) {
-
-    var Device = $resource('/devices/:id');
+  function($scope, $routeParams, Device) {
 
     if($routeParams.deviceId) {
       Device.get({id: $routeParams.deviceId},
