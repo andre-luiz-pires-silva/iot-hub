@@ -11,6 +11,11 @@ angular.module('iot', ['ngRoute', 'ngResource'])
       controller: 'DeviceController'
     });
 
+    $routeProvider.when('/device', {
+      templateUrl: 'partials/device.html',
+      controller: 'DeviceController'
+    });
+
     $routeProvider.otherwise({redirectTo: '/devices'});
 
 });

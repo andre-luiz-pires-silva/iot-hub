@@ -4,9 +4,11 @@
   </h1>
 </div>
 
-<button class="btn btn-primary" ng-click="incrementa()">
-  Novo
-</button>
+<p ng-show="mensagem.texto">
+  {{mensagem.texto}}
+</p>
+
+<a ng-href="#/device" class="btn btn-primary">Novo Device</a>
 
 <input ng-model="filtro" type="search" placeholder="parte do nome">
 
@@ -29,7 +31,9 @@
       <td>
         <a>{{device.ip}}</a>
       </td>
-      <td>{{device.name}}</td>
+      <td>
+        <a ng-href="#/device/{{device._id}}">{{device.name}}</a>
+      </td>
       <td class="text-center">
         <button ng-click="delete(device)" class="btn btn-warning">
           Remover
