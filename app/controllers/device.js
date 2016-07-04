@@ -1,66 +1,79 @@
 // app/controllers/contato.js
+module.exports = function(app) {
 
-var devices = [
-  {_id: 1, ip: '192.168.1.1', name: 'Device 1'},
-  {_id: 2, ip: '192.168.1.2', name: 'Device 2'},
-  {_id: 3, ip: '192.168.1.3', name: 'Device 3'}
-];
+  var Device = app.models.device;
 
-
-module.exports = function() {
   var controller = {};
-  var ID_DEVICE_INC = 3;
 
   controller.getDevices = function(req, res) {
-    res.json(devices);
+    Device.find().populate('deviceType').exec()
+    .then(
+      function(devices) {
+        res.json(devices);
+      },
+      function(error) {
+        console.error(error);
+        res.status(500).json(error);
+      }
+    );
   };
 
   controller.getDevice = function(req, res) {
-    var id = req.params.id;
-    console.log("Get Device #" + id);
-
-    var device = devices.filter(function(device){
-      return device._id == id;
-    })[0];
-
-    device ?
-      res.json(device) :
-      res.status(404).send('Device not found');
+    var _id = req.params.id;
+    Device.findById(_id).exec()
+    .then(
+      function(device) {
+        if (!device) throw new Error("Device not found");
+        res.json(device) ;
+      },
+      function(error) {
+        console.log(error);
+        res.status(404).json(error);
+      }
+    );
   };
 
   controller.deleteDevice = function(req, res) {
-    var deviceId = req.params.id;
-
-    devices = devices.filter(function(device) {
-      return device._id != deviceId;
-    });
-
-    res.status(204).end();
+    var _id = req.params.id;
+    Device.remove({"_id" : _id}).exec()
+    .then(
+      function() {
+        res.status(204).end();
+      },
+      function(error) {
+        return console.error(error);
+      }
+    );
   };
 
   controller.saveDevice = function(req, res) {
-    var device = req.body;
-    device = device._id ?
-        update(device) :
-        add(device);
+    var _id = req.body._id;
 
-    res.json(device);
-  };
+    req.body.deviceType = req.body.deviceType || null;
 
-  function add(newDevice) {
-    newDevice._id = ++ID_DEVICE_INC;
-    devices.push(newDevice);
-    return newDevice;
-  };
-
-  function update(upDevice) {
-    devices = devices.map(function(device) {
-        if(device._id == upDevice._id) {
-          device = upDevice;
+    if(_id) {
+      Device.findByIdAndUpdate(_id, req.body).exec()
+      .then(
+        function(device) {
+          res.json(device);
+        },
+        function(error) {
+          console.error(error);
+          res.status(500).json(error);
         }
-        return device;
-    });
-    return upDevice;
+      );
+    } else {
+      Device.create(req.body)
+      .then(
+        function(device) {
+          res.status(201).json(device);
+        },
+        function(error) {
+          console.log(error);
+          res.status(500).json(error);
+        }
+      );
+    }
   };
 
   return controller;
