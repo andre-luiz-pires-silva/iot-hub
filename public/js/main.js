@@ -1,5 +1,5 @@
-angular.module('iot', ['ngRoute', 'ngResource'])
-  .config(function($routeProvider) {
+angular.module('iot', ['ngRoute', 'ngResource', 'ngMaterial'])
+  .config(function($routeProvider, $mdThemingProvider, $mdIconProvider) {
 
     $routeProvider.when('/devices', {
       templateUrl: 'partials/devices.html',
@@ -17,5 +17,13 @@ angular.module('iot', ['ngRoute', 'ngResource'])
     });
 
     $routeProvider.otherwise({redirectTo: '/devices'});
+
+    $mdIconProvider
+      .defaultIconSet("./assets/svg/avatars.svg", 128)
+      .icon("menu", "./assets/svg/menu.svg", 24);
+
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('red');
 
 });

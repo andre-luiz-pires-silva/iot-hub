@@ -3,7 +3,7 @@ angular.module('iot').controller('DevicesController',
 
   $scope.filtro = '';
   $scope.devices = [];
-  $scope.message = {'text': ''};  
+  $scope.message = {'text': ''};
 
   function getDevices() {
     Device.query(
@@ -18,7 +18,7 @@ angular.module('iot').controller('DevicesController',
     );
   }
 
-  $scope.delete = function(device) {
+  $scope.delete = function(device) {    
     Device.delete({id: device._id},
       getDevices,
       function(erro) {

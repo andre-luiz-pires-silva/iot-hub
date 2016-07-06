@@ -1,46 +1,18 @@
-<div class="jumbotron">
-  <h1 class="text-center">
-    Bem-vindo ao IoT
-  </h1>
-</div>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Filtro de Busca</label>
+  <input ng-model="filtro">
+</md-input-container>
 
-<p ng-show="message.text">
-  {{message.text}}
-</p>
+<md-list flex>
+  <md-list-item class="md-3-line" ng-repeat="device in devices | filter: filtro" ng-click="openDevice(device)">
+    <md-icon md-svg-icon="menu"></md-icon>
+    <md-switch class="md-secondary" ng-model="setting.enabled"></md-switch>
+    <div class="md-list-item-text" layout="column">
+      <h3>{{device.name}}</h3>
+      <h4>{{device.ip}}</h4>
+      <p>askjhd akjsd kjah skdjhaksjhdkjahs dh asdh</p>
+    </div>
 
-<a ng-href="#/device" class="btn btn-primary">Novo Device</a>
+  </md-list-item>
 
-<input ng-model="filtro" type="search" placeholder="parte do nome">
-
-<p ng-show="devices.length">
-  Devices cadastrados: {{devices.length}}
-</p>
-
-<p class="text-info" ng-hide="devices.length">
-  Não há Devices cadastrados
-</p>
-
-<div class="table-responsive">
-  <table class="table table-hover">
-    <tr>
-      <th>IP</th>
-      <th>Nome</th>
-      <th>Tipo</th>
-      <th class="text-center">Ação</th>
-    </tr>
-    <tr ng-repeat="device in devices | filter: filtro">
-      <td>
-        <a>{{device.ip}}</a>
-      </td>
-      <td>
-        <a ng-href="#/device/{{device._id}}">{{device.name}}</a>
-      </td>
-      <td>{{device.deviceType.name}}</td>  
-      <td class="text-center">
-        <button ng-click="delete(device)" class="btn btn-warning">
-          Remover
-        </buttom>
-      </td>
-    </tr>
-  </table>
-</div>
+</md-list flex>

@@ -1,5 +1,5 @@
   angular.module('iot').controller('DeviceController',
-  function($scope, $routeParams, Device, DeviceType) {
+  function($scope, $routeParams, $location, Device, DeviceType) {
 
     DeviceType.query(function(deviceTypes) {
       $scope.deviceTypes = deviceTypes;
@@ -24,13 +24,25 @@
     $scope.save = function() {
       $scope.device.$save()
         .then(function() {
-          $scope.message = {text: 'Salvo com sucesso'};
+          $location.path('/devices');
           $scope.device = new Device();
         })
         .catch(function(erro){
           $scope.message = {text: 'Não foi possível salvar'};
           console.log(erro);
         });
+    };
+
+    $scope.delete = function(device) {
+      Device.delete({id: device._id},
+        function() {
+          $location.path('/devices');
+        },
+        function(erro) {
+          $scope.message = {text: 'Não foi possível remover o contato'};
+          console.log(erro);
+        }
+      );
     };
 
   });

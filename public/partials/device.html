@@ -5,31 +5,27 @@
 
 <form ng-submit="save()">
 
-  <div class="form-group">
-    <label for="ip">Endereço IP</label>
-    <input type="text" class="form-control" id="ip" name="ip" required ng-model="device.ip">
-  </div>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Endereço IP do Device</label>
+    <input ng-model="device.ip">
+  </md-input-container>
 
-  <div class="form-group">
-    <label for="name">Nome</label>
-    <input type="text" class="form-control" id="name" name="name" required ng-model="device.name">
-  </div>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Nome do Device</label>
+    <input ng-model="device.name">
+  </md-input-container>
 
-  <div class="form-group">
-    <label for="deviceType">Tipo</label>
-    <select id="deviceType"
-      class="form-control"
-      ng-model="device.deviceType"
-      ng-options="deviceType._id as deviceType.name for deviceType in deviceTypes"
-      >
-    </select>
-</div>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Tipo</label>
+    <md-select ng-model="device.deviceType" placeholder="Tipo do Device">
+      <md-option ng-repeat="deviceType in deviceTypes" ng-value="deviceType._id">{{deviceType.name}}</md-option>
+    </md-select>
+  </md-input-container>
 
-  <div>
-    <button type="submit" class="btn btn-primary">
-      Salvar
-    </button>
-    <a href="#/" class="btn btn-default">Voltar</a>
-  </div>
+  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <md-button type="submit" class="md-raised md-primary">Salvar</md-button>
+    <md-button ng-href="#/" class="md-raised">Voltar</md-button>
+    <md-button ng-click="delete(device)"class="md-raised md-warn">Excluir</md-button>
+  </section>
 
 </form>
