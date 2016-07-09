@@ -24,6 +24,10 @@ module.exports = function(app) {
     .then(
       function(device) {
         if (!device) throw new Error("Device not found");
+
+        // Cors
+        res.header("Access-Control-Allow-Origin", "*");
+
         res.json(device) ;
       },
       function(error) {

@@ -36,14 +36,14 @@
 
           <md-list-item>
             <md-button ng-href="#/devices" ng-class="{'selected' : it === ul.selected }">
-              <md-icon md-svg-icon="add" class="avatar"></md-icon>
+              <md-icon class="avatar"></md-icon>
               Meus Devices
             </md-button>
           </md-list-item>
 
           <md-list-item>
             <md-button ng-href="#/device" ng-class="{'selected' : it === ul.selected }">
-              <md-icon md-svg-icon="devices" class="avatar"></md-icon>
+              <md-icon class="avatar"></md-icon>
               Adicionar Device
             </md-button>
           </md-list-item>
@@ -54,8 +54,6 @@
       <md-content flex layout-padding id="content">
         <div ng-view></div>
       </md-content>
-
-
 
     </div>
 
@@ -69,8 +67,9 @@
     <script src="js/controllers/AppController.js"></script>
     <script src="js/controllers/DevicesController.js"></script>
     <script src="js/controllers/DeviceController.js"></script>
-    <script src="js/services/DevicesService.js"></script>
-    <script src="js/services/DeviceTypesService.js"></script>
+    <script src="js/services/REST/DevicesService.js"></script>
+    <script src="js/services/REST/DeviceTypesService.js"></script>
+    <script src="js/services/IOT/SwitchController.js"></script>
 
   </body>
 

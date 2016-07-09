@@ -9,6 +9,7 @@ angular.module('iot').controller('AppController', function($scope, $mdSidenav, $
 
   $scope.openDevice = function ( device ) {
     $location.path( '/device/' + device._id );
+    console.log('Open: ' + device._id);
   };
 
 });
