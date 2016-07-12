@@ -1,31 +1,107 @@
-<h1 class="text-center">Device</h1>
-<p ng-show="message.text">
-  {{message.text}}
-</p>
-
 <form ng-submit="save()">
 
-  <md-input-container class="md-block" flex-gt-sm>
-    <label>Endereço IP do Device</label>
-    <input ng-model="device.ip">
-  </md-input-container>
+<div layout="row" layout-xs="column">
 
-  <md-input-container class="md-block" flex-gt-sm>
-    <label>Nome do Device</label>
-    <input ng-model="device.name">
-  </md-input-container>
+  <div flex>
+    <md-content flex layout-padding>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Endereço IP do Device</label>
+        <input ng-model="device.ip">
+      </md-input-container>
 
-  <md-input-container class="md-block" flex-gt-sm>
-    <label>Tipo</label>
-    <md-select ng-model="device.deviceType" placeholder="Tipo do Device">
-      <md-option ng-repeat="deviceType in deviceTypes" ng-value="deviceType._id">{{deviceType.name}}</md-option>
-    </md-select>
-  </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Nome do Device</label>
+        <input ng-model="device.name">
+      </md-input-container>
 
-  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-    <md-button type="submit" class="md-raised md-primary">Salvar</md-button>
-    <md-button ng-href="#/" class="md-raised">Voltar</md-button>
-    <md-button ng-click="delete(device)" class="md-raised md-warn">Excluir</md-button>
-  </section>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Tipo</label>
+        <md-select ng-model="device.deviceType" placeholder="Tipo do Device">
+          <md-option ng-repeat="deviceType in deviceTypes" ng-value="deviceType._id">{{deviceType.name}}</md-option>
+        </md-select>
+      </md-input-container>
+    </md-content>
+  </div>
+
+  <div flex>
+    <md-content flex layout-padding>
+      <md-tabs md-dynamic-height md-border-bottom>
+
+        <md-tab label="Ativação">
+          <md-content class="md-padding">
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Verbo HTTP</label>
+                <md-select ng-model="activateVerb" placeholder="Verbo HTTP">
+                  <md-option ng-repeat="deviceType in deviceTypes" ng-value="deviceType._id">{{deviceType.name}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Caminho</label>
+                <input ng-model="activatePath">
+              </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Cabeçalhos</label>
+                <textarea ng-model="activateHeader" md-select-on-focus></textarea>
+              </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Corpo da Mensagem</label>
+                <textarea ng-model="activateBody" md-select-on-focus></textarea>
+              </md-input-container>
+            </div>
+
+          </md-content>
+        </md-tab>
+
+
+        <md-tab label="Desativação">
+          <md-content class="md-padding">
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Verbo HTTP</label>
+                <md-select ng-model="activateVerb" placeholder="Verbo HTTP">
+                  <md-option ng-repeat="deviceType in deviceTypes" ng-value="deviceType._id">{{deviceType.name}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Caminho</label>
+                <input ng-model="activatePath">
+              </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Cabeçalhos</label>
+                <textarea ng-model="activateHeader" md-select-on-focus></textarea>
+              </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Corpo da Mensagem</label>
+                <textarea ng-model="activateBody" md-select-on-focus></textarea>
+              </md-input-container>
+            </div>
+
+          </md-content>
+        </md-tab>
+
+      </md-tab>
+
+    </md-content>
+  </div>
+</div>
+
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+  <md-button type="submit" class="md-raised md-primary">Salvar</md-button>
+  <md-button ng-href="#/" class="md-raised">Voltar</md-button>
+  <md-button ng-click="delete(device)" class="md-raised md-warn">Excluir</md-button>
+</section>
 
 </form>

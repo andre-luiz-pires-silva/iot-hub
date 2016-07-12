@@ -1,4 +1,3 @@
-// app/controllers/contato.js
 module.exports = function(app) {
 
   var Device = app.models.device;
