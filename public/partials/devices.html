@@ -5,10 +5,7 @@
 
 <md-list flex>
 
-  <div ng-repeat="device in devices | filter: devicesFilter">
-
-    <!-- Rele -->
-    <md-list-item class="md-3-line" ng-click="openDevice(device)" ng-if='device.deviceType._id == "577ae5e389afedfba1aca24d"'>
+    <md-list-item class="md-3-line" ng-click="openDevice(device)" ng-repeat="device in devices | filter: devicesFilter">
 
         <md-icon md-svg-icon="menu"></md-icon>
 
@@ -23,23 +20,5 @@
         <md-progress-circular ng-show='device.loading' class="md-hue-2 md-secondary" md-mode='indeterminate'></md-progress-circular>
 
     </md-list-item>
-
-    <!-- Sensor -->
-    <md-list-item class="md-3-line" ng-click="openDevice(device)" ng-if='device.deviceType._id == "577ae5d689afedfba1aca24b"'>
-
-      <md-icon md-svg-icon="menu"></md-icon>
-
-      <div class="md-list-item-text" layout="column">
-        <h3>{{device.name}}</h3>
-        <h4>{{device.ip}}</h4>
-        <p>{{device.message}}</p>
-      </div>
-
-      <md-button ng-show='!device.loading' class="md-secondary md-fab md-mini" ng-click="changeStatus(device)" aria-label="Get Data">
-        <md-icon md-svg-src="./assets/svg/controls-2.svg" />
-      </md-button>
-      <md-progress-circular ng-show='device.loading' class="md-hue-2 md-secondary" md-mode='indeterminate'></md-progress-circular>
-
-  </div ng-repeat-end>
 
 </md-list flex>

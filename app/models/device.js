@@ -14,10 +14,10 @@ module.exports = function() {
         unique: true
       }
     },
-    deviceType: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'DeviceType'
-    }
+    description: {
+      type: String,
+      required: false
+    },
   });
 
   return mongoose.model('Device', schema);

@@ -1,0 +1,59 @@
+  <form ng-submit="save()">
+
+    <div layout="row" layout-xs="column">
+
+      <div flex>
+
+        <h2>Device: {{device.name}}</h2>
+
+        <md-content>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Nome</label>
+              <textarea ng-model="command.name" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Verbo HTTP</label>
+              <md-select ng-model="command.httpVerb" placeholder="Verbo HTTP">
+                <md-option ng-repeat="verb in requestVerbs" ng-value="verb">{{verb}}</md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Caminho</label>
+              <input ng-model="command.httpPath">
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Cabeçalhos</label>
+              <textarea ng-model="command.httpHeader" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Corpo da Mensagem</label>
+              <textarea ng-model="command.httpBody" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+
+        </md-content>
+
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <md-button type="submit" class="md-fab md-primary md-mini" aria-label="Voltar">
+            <md-icon md-svg-src="./assets/svg/ic_done_white_24px.svg" />
+          </md-button>
+          <md-button ng-href="#/device/{{device._id}}" class="md-fab md-warn md-mini" aria-label="Voltar">
+            <md-icon md-svg-src="./assets/svg/ic_undo_white_24px.svg" />
+          </md-button>
+          <md-button class="md-fab md-mini" aria-label="Voltar" ng-click="delete(command)">
+            <md-icon md-svg-src="./assets/svg/ic_delete_forever_white_24px.svg" />
+          </md-button>
+        </section>
+
+      </div>
+
+    </div>
+
+  </form>

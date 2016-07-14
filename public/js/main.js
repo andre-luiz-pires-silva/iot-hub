@@ -16,6 +16,16 @@ angular.module('iot', ['ngRoute', 'ngResource', 'ngMaterial'])
       controller: 'DeviceController'
     });
 
+    $routeProvider.when('/command/device=:deviceId', {
+      templateUrl: 'partials/command.html',
+      controller: 'CommandController'
+    });
+
+    $routeProvider.when('/command/:commandId', {
+      templateUrl: 'partials/command.html',
+      controller: 'CommandController'
+    });
+
     $routeProvider.otherwise({redirectTo: '/devices'});
 
     $mdIconProvider

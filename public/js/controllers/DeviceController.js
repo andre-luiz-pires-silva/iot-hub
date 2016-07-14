@@ -1,14 +1,20 @@
   angular.module('iot').controller('DeviceController',
-  function($scope, $routeParams, $location, Device, DeviceType) {
+  function($scope, $routeParams, $location, $mdToast, Device, CommandByDevice) {
 
-    DeviceType.query(function(deviceTypes) {
-      $scope.deviceTypes = deviceTypes;
-    });
+    var deviceId = $routeParams.deviceId;
 
-    if($routeParams.deviceId) {
-      Device.get({id: $routeParams.deviceId},
+    $scope.commands = new Array();
+    $scope.requestVerbs = ['GET', 'POST', 'PUT', 'DELETE'];
+
+    if(deviceId) {
+      CommandByDevice.query({deviceId: deviceId}, function(commands) {
+        $scope.commands = commands;
+      });
+
+      Device.get({id: deviceId},
         function(device) {
           $scope.device = device;
+
         },
         function(erro) {
           $scope.message = {
@@ -24,8 +30,7 @@
     $scope.save = function() {
       $scope.device.$save()
         .then(function() {
-          $location.path('/devices');
-          $scope.device = new Device();
+          $mdToast.show($mdToast.simple().textContent('Device cadastrado com sucesso!').position('top'));
         })
         .catch(function(erro){
           $scope.message = {text: 'Não foi possível salvar'};
@@ -44,5 +49,9 @@
         }
       );
     };
+
+    $scope.sendCommand = function() {
+      console.log('Send Command');
+    }
 
   });
