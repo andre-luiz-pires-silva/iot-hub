@@ -1,71 +1,83 @@
 <form ng-submit="save()">
 
-  <div layout="row" layout-xs="column">
+  <md-content>
 
-    <div flex>
-      <md-content flex layout-padding>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Nome do Device</label>
-          <input ng-model="device.name">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Endereço IP do Device</label>
-          <input ng-model="device.ip">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Descrição</label>
-          <textarea ng-model="device.description" md-select-on-focus></textarea>
-        </md-input-container>
-      </md-content>
-    </div>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTab">
 
-    <div flex>
+      <md-tab label="Device">
+        <md-content flex layout-padding>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Nome do Device</label>
+            <input ng-model="device.name">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Endereço IP do Device</label>
+            <input ng-model="device.ip">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Descrição</label>
+            <textarea ng-model="device.description" md-select-on-focus></textarea>
+          </md-input-container>
+        </md-content>
+      </md-tab>
 
-      <md-subheader class="md-no-sticky">
-        Comandos Cadastrados
-        <md-button ng-disabled="!device._id" class="md-fab md-primary md-mini" aria-label="Voltar"
-          ng-href="#/command/device={{device._id}}">
+      <md-tab label="Comandos" ng-disabled="!device._id">
 
-          <md-icon md-svg-src="./assets/svg/ic_note_add_white_24px.svg" />
-        </md-button>
-      </md-subheader>
+        <md-list flex ng-show="device._id">
 
-      <md-list flex ng-show="device._id">
-        <md-list-item class="md-3-line" ng-repeat="command in commands"
-          ng-href="#/command/{{command._id}}">
+          <md-list-item class="md-2-line" ng-href="#/command/device={{device._id}}">
+
+            <md-button class="md-primary md-fab md-mini" aria-label="Voltar"
+            ng-href="#/command/device={{device._id}}">
+            <md-icon md-svg-src="./assets/svg/ic_note_add_white_24px.svg" />
+          </md-button>
 
           <div class="md-list-item-text" layout="column">
-            <h3>{{ command.name }}</h3>
-            <h4>{{ command.httpPath }}</h4>
-            <p>{{ command.httpVerb }}</p>
+            <h3>Cadastrar Novo Comando</h3>
+            <p>É através dos comandos que você conseguirá interagir com seu Device</p>
           </div>
-
-          <md-button class="md-secondary md-fab md-mini" ng-click="sendCommand()" aria-label="Send Command">
-            <md-icon md-svg-src="./assets/svg/ic_send_white_24px.svg" />
-          </md-button>
 
         </md-list-item>
 
-      </md-list>
+        <md-divider></md-divider>
 
-      <div ng-show="!device._id">
-        Cadastre as informações Básicas do Device para depois configurar seus comandos de acesso.
-      </div>
+        <md-list-item class="md-3-line" ng-repeat="command in commands"
+        ng-href="#/command/{{command._id}}">
 
+        <div class="md-list-item-text" layout="column">
+          <h3>{{ command.name }}</h3>
+          <h4>{{ command.httpPath }}</h4>
+          <p>{{ command.httpVerb }}</p>
+        </div>
+
+        <md-button class="md-secondary md-fab md-mini" ng-click="sendCommand()" aria-label="Send Command">
+          <md-icon md-svg-src="./assets/svg/ic_send_white_24px.svg" />
+        </md-button>
+
+      </md-list-item>
+
+    </md-list>
+
+    <div ng-show="!device._id">
+      Cadastre as informações Básicas do Device para depois configurar seus comandos de acesso.
     </div>
 
-  </div>
+  </md-tab>
 
-  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-    <md-button type="submit" class="md-fab md-primary md-mini" aria-label="Salvar">
-      <md-icon md-svg-src="./assets/svg/ic_done_white_24px.svg" />
-    </md-button>
-    <md-button ng-href="#/" class="md-fab md-warn md-mini" aria-label="Voltar">
-      <md-icon md-svg-src="./assets/svg/ic_undo_white_24px.svg" />
-    </md-button>
-    <md-button ng-click="delete(device)" class="md-fab md-mini" aria-label="Voltar">
-      <md-icon md-svg-src="./assets/svg/ic_delete_forever_white_24px.svg" />
-    </md-button>
-  </section>
+</md-tabs>
+
+</md-content>
+
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+  <md-button type="submit" class="md-fab md-primary md-mini" aria-label="Salvar">
+    <md-icon md-svg-src="./assets/svg/ic_done_white_24px.svg" />
+  </md-button>
+  <md-button ng-href="#/" class="md-fab md-warn md-mini" aria-label="Voltar">
+    <md-icon md-svg-src="./assets/svg/ic_undo_white_24px.svg" />
+  </md-button>
+  <md-button ng-click="delete(device)" class="md-fab md-mini" aria-label="Voltar">
+    <md-icon md-svg-src="./assets/svg/ic_delete_forever_white_24px.svg" />
+  </md-button>
+</section>
 
 </form>
