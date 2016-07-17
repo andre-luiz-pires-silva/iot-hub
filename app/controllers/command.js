@@ -8,6 +8,7 @@ module.exports = function(app) {
     Command.find().exec()
     .then(
       function(commands) {
+        res.header("Access-Control-Allow-Origin", "*");
         res.json(commands);
       },
       function(error) {

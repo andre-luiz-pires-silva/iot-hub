@@ -16,12 +16,10 @@ module.exports = function() {
       required: true
     },
     httpHeader: {
-      type: String,
-      required: true
+      type: String      
     },
     httpBody: {
-      type: String,
-      required: true
+      type: String
     },
     device: {
       type: mongoose.Schema.ObjectId,

@@ -25,42 +25,41 @@
 
         <md-list flex ng-show="device._id">
 
-          <md-list-item class="md-2-line" ng-href="#/command/device={{device._id}}">
-
-            <md-button class="md-primary md-fab md-mini" aria-label="Voltar"
-            ng-href="#/command/device={{device._id}}">
-            <md-icon md-svg-src="./assets/svg/ic_note_add_white_24px.svg" />
-          </md-button>
+          <md-list-item class="md-3-line" ng-repeat="command in commands"
+            ng-href="#/command/{{command._id}}">
 
           <div class="md-list-item-text" layout="column">
-            <h3>Cadastrar Novo Comando</h3>
-            <p>É através dos comandos que você conseguirá interagir com seu Device</p>
+            <h3>{{command.name}}</h3>
+            <p>{{command.httpVerb}}: {{command.httpPath}}</p>
+            <p style="color:{{command.error ? 'red' : 'black'}}">{{command.message}}</p>
           </div>
+
+          <md-button class="md-secondary md-fab md-mini" ng-click="sendCommand(command)"
+            ng-show='!command.loading' aria-label="Send Command">
+            <md-icon md-svg-src="./assets/svg/ic_send_white_24px.svg" />
+          </md-button>
+          <md-progress-circular class="md-secondary" md-mode='indeterminate'
+            ng-show='command.loading'>
+          </md-progress-circular>
+
+          <md-divider/></md-divider>
 
         </md-list-item>
 
-        <md-divider></md-divider>
+        <md-list-item class="md-2-line" ng-href="#/command/device={{device._id}}">
 
-        <md-list-item class="md-3-line" ng-repeat="command in commands"
-        ng-href="#/command/{{command._id}}">
+          <md-button class="md-primary md-fab md-mini" aria-label="Voltar"
+          ng-href="#/command/device={{device._id}}">
+          <md-icon md-svg-src="./assets/svg/ic_note_add_white_24px.svg" />
+        </md-button>
 
         <div class="md-list-item-text" layout="column">
-          <h3>{{ command.name }}</h3>
-          <h4>{{ command.httpPath }}</h4>
-          <p>{{ command.httpVerb }}</p>
+          <h3>Cadastrar Novo Comando</h3>
         </div>
-
-        <md-button class="md-secondary md-fab md-mini" ng-click="sendCommand()" aria-label="Send Command">
-          <md-icon md-svg-src="./assets/svg/ic_send_white_24px.svg" />
-        </md-button>
 
       </md-list-item>
 
     </md-list>
-
-    <div ng-show="!device._id">
-      Cadastre as informações Básicas do Device para depois configurar seus comandos de acesso.
-    </div>
 
   </md-tab>
 
@@ -68,14 +67,14 @@
 
 </md-content>
 
-<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+<section layout="row" layout-align="center center" layout-wrap>
   <md-button type="submit" class="md-fab md-primary md-mini" aria-label="Salvar">
     <md-icon md-svg-src="./assets/svg/ic_done_white_24px.svg" />
   </md-button>
   <md-button ng-href="#/" class="md-fab md-warn md-mini" aria-label="Voltar">
     <md-icon md-svg-src="./assets/svg/ic_undo_white_24px.svg" />
   </md-button>
-  <md-button ng-click="delete(device)" class="md-fab md-mini" aria-label="Voltar">
+  <md-button ng-click="delete(device)" ng-disabled="!device._id" class="md-fab md-mini" aria-label="Voltar">
     <md-icon md-svg-src="./assets/svg/ic_delete_forever_white_24px.svg" />
   </md-button>
 </section>

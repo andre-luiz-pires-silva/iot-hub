@@ -1,5 +1,5 @@
   angular.module('iot').controller('DeviceController',
-  function($scope, $routeParams, $location, $mdToast, Device, CommandByDevice) {
+  function($scope, $routeParams, $location, $mdToast, Device, CommandByDevice, CommandRequestController) {
 
     var deviceId = $routeParams.deviceId;
 
@@ -7,14 +7,9 @@
     $scope.requestVerbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
     if(deviceId) {
-      CommandByDevice.query({deviceId: deviceId}, function(commands) {
-        $scope.commands = commands;
-      });
-
       Device.get({id: deviceId},
         function(device) {
           $scope.device = device;
-
         },
         function(erro) {
           $scope.message = {
@@ -23,6 +18,12 @@
           console.log(erro);
         }
       );
+
+      CommandByDevice.query({deviceId: deviceId}, function(commands) {
+        $scope.commands = commands;
+        $scope.selectedTab = 1;
+      });
+
     } else {
       $scope.device = new Device();
     }
@@ -55,8 +56,22 @@
       );
     };
 
-    $scope.sendCommand = function() {
-      console.log('Send Command');
+    $scope.sendCommand = function(command) {
+      command.device = $scope.device;
+      command.loading = true;
+      CommandRequestController.sendCommand(command,
+        function(response) {
+          command.loading = false;
+          command.message = 'Sucesso';
+          command.error = false;
+
+        }, function(response) {
+          command.loading = false;
+          command.message = response.status != -1 ? (response.status + ': ' + response.statusText) : 'Erro de Conexão';
+          command.error = true;
+        }
+      );
+      console.log('Send Command: ' + command.name);
     }
 
   });
