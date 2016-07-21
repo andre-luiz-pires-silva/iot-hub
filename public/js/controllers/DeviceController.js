@@ -61,8 +61,13 @@
       command.loading = true;
       CommandRequestController.sendCommand(command,
         function(response) {
+          var data = response.data;
+          command.message = '';
+          for(var key in data) {
+            command.message += key + ': ' + data[key] + '. ';
+          }
+
           command.loading = false;
-          command.message = 'Sucesso';
           command.error = false;
 
         }, function(response) {

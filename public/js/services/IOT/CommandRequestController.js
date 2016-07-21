@@ -4,26 +4,15 @@ angular.module('iot').factory('CommandRequestController', function($resource, $h
 
     sendCommand: function(command, finishedCallback, errorCallback) {
 
-      var header = {'key1' : 'value1'};
-      header.key2 = 'value2';
-      command.httpHeader = header;
+      var parameters = {method: command.httpVerb, url: command.device.ip + command.httpPath};
+      if(command.httpHeader) {
+        parameters.headers = command.httpHeader;
+      }
+      if(command.httpBody) {
+        parameters.data = command.httpBo
+      }
 
-      $http({method: command.httpVerb, url: command.device.ip + command.httpPath,
-        headers: command.httpHeader, data: command.httpBody})
-
-        // .success(finishedCallback)
-        // .error(errorCallback);
-
-        // .then(function successCakkback(response){
-        //   console.log(response);
-        // }, function errorCallback(response){
-        //   console.log(response);
-        // });
-
-        .then(finishedCallback, errorCallback);
-
-      // var CommandResource = $resource(command.device.ip + command.httpPath);
-      // CommandResource.query(finishedCallback, errorCallback);
+      $http(parameters).then(finishedCallback, errorCallback);
     }
   };
 });
