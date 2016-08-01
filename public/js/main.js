@@ -1,5 +1,11 @@
 angular.module('iot', ['ngRoute', 'ngResource', 'ngMaterial'])
-  .config(function($routeProvider, $mdThemingProvider, $mdIconProvider) {
+  .config(function($routeProvider, $httpProvider, $mdThemingProvider, $mdIconProvider) {
+
+    $httpProvider.interceptors.push('meuInterceptor');
+
+    $routeProvider.when('/auth', {
+      templateUrl: 'partials/auth.html'
+    });
 
     $routeProvider.when('/devices', {
       templateUrl: 'partials/devices.html',
