@@ -9,7 +9,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    <!-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'> -->
     <link rel="stylesheet" href="vendor/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
 
@@ -32,6 +31,15 @@
     <div flex layout="row">
 
       <md-sidenav ng-click="toggle()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+
+        <%if (logged == true) { %>
+        <div class="text-right">
+          <p>
+            Logado como: <span id="usuario-logado"><%=loggedUser %><span>
+            <a href="/logout">Sair</a>
+          </p>
+        </div>
+
         <md-list>
 
           <md-list-item>
@@ -49,18 +57,16 @@
           </md-list-item>
 
         </md-list>
+
+        <% } else { %>
+          <a href="/auth/github">
+            <h1 id="entrar" class="text-center">Login</h1>
+          </a>
+        <% } %>
+
       </md-sidenav>
 
       <md-content flex layout-padding id="content">
-
-        <%if (usuarioLogado.length > 0) { %>
-        <div class="text-right">
-          <p>
-            Logado como: <span id="usuario-logado"><%=usuarioLogado %><span>
-            <a href="/logout">Logout</a>
-          </p>
-        </div>
-        <% } %>
 
         <div ng-view></div>
 
@@ -80,9 +86,7 @@
     <script src="js/controllers/DeviceController.js"></script>
     <script src="js/controllers/CommandController.js"></script>
     <script src="js/services/REST/DevicesService.js"></script>
-    <script src="js/services/REST/DeviceTypesService.js"></script>
     <script src="js/services/REST/CommandsService.js"></script>
-    <script src="js/services/IOT/SwitchController.js"></script>
     <script src="js/services/IOT/CommandRequestController.js"></script>
     <script src="js/services/InterceptorService.js"></script>
 

@@ -4,11 +4,68 @@ module.exports = function(app) {
 
   var controller = {};
 
-  controller.getCommands = function(req, res) {
-    Command.find().exec()
+  controller.saveCommand = function(req, res) {
+    var userId = req.user._id;
+
+    var command = {};
+    if(req.body._id) {
+      command._id = req.body._id;
+    }
+    command.name = req.body.name;
+    command.httpVerb = req.body.httpVerb;
+    command.httpPath = req.body.httpPath;
+    command.httpHeader = req.body.httpHeader;
+    command.httpBody = req.body.httpBody;
+    command.device = req.body.device;
+    command.user = userId;
+
+    if(command._id) {
+      Command.findByIdAndUpdate(command._id, command).exec()
+      .then(
+        function(savedCommand) {
+          res.json(savedCommand);
+        },
+        function(error) {
+          console.error(error);
+          res.status(500).json(error);
+        }
+      );
+    } else {
+      Command.create(command)
+      .then(
+        function(savedCommand) {
+          res.status(201).json(savedCommand);
+        },
+        function(error) {
+          console.log(error);
+          res.status(500).json(error);
+        }
+      );
+    }
+  };
+
+  controller.deleteCommand = function(req, res) {
+    var userId = req.user._id;
+    var commandId = req.params.id;
+
+    Command.remove({_id:commandId, user:userId}).exec()
+    .then(
+      function() {
+        res.status(204).end();
+      },
+      function(error) {
+        return console.error(error);
+      }
+    );
+  };
+
+  controller.getCommandsByDeviceId = function(req, res) {
+    var userId = req.user._id;
+    var deviceId = req.params.deviceId;
+
+    Command.find({user:userId, device:deviceId}).exec()
     .then(
       function(commands) {
-        res.header("Access-Control-Allow-Origin", "*");
         res.json(commands);
       },
       function(error) {
@@ -19,8 +76,10 @@ module.exports = function(app) {
   };
 
   controller.getCommand = function(req, res) {
-    var _id = req.params.id;
-    Command.findById(_id).populate('device').exec()
+    var userId = req.user._id;
+    var commandId = req.params.id;
+
+    Command.findOne({user:userId, _id:commandId}).populate('device').exec()
     .then(
       function(command) {
         if (!command) throw new Error("Command not found");
@@ -37,62 +96,7 @@ module.exports = function(app) {
     );
   };
 
-  controller.getCommandsByDeviceId = function(req, res) {
-    var deviceId = req.params.deviceId;
-    Command.find({device:deviceId}).exec()
-    .then(
-      function(commands) {
-        res.json(commands);
-      },
-      function(error) {
-        console.error(error);
-        res.status(500).json(error);
-      }
-    );
-  };
 
-  controller.saveCommand = function(req, res) {
-    var _id = req.body._id;
-
-    req.body.device = req.body.device || null;
-
-    if(_id) {
-      Command.findByIdAndUpdate(_id, req.body).exec()
-      .then(
-        function(command) {
-          res.json(command);
-        },
-        function(error) {
-          console.error(error);
-          res.status(500).json(error);
-        }
-      );
-    } else {
-      Command.create(req.body)
-      .then(
-        function(command) {
-          res.status(201).json(command);
-        },
-        function(error) {
-          console.log(error);
-          res.status(500).json(error);
-        }
-      );
-    }
-  };
-
-  controller.deleteCommand = function(req, res) {
-    var _id = req.params.id;
-    Command.remove({"_id" : _id}).exec()
-    .then(
-      function() {
-        res.status(204).end();
-      },
-      function(error) {
-        return console.error(error);
-      }
-    );
-  };
 
   return controller;
 };

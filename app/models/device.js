@@ -18,6 +18,10 @@ module.exports = function() {
       type: String,
       required: false
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User'
+    },
   });
 
   return mongoose.model('Device', schema);

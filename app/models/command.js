@@ -16,7 +16,7 @@ module.exports = function() {
       required: true
     },
     httpHeader: {
-      type: String      
+      type: String
     },
     httpBody: {
       type: String
@@ -24,7 +24,11 @@ module.exports = function() {
     device: {
       type: mongoose.Schema.ObjectId,
       ref: 'Device'
-    }
+    },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User'
+    },
   });
 
   return mongoose.model('Command', schema);

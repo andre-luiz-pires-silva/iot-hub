@@ -3,11 +3,11 @@ angular.module('iot')
 
     var interceptor = {
 
-      responseError: function(resposta) {
-        if (resposta.status == 401) {
+      responseError: function(response) {
+        if (response.status == 401) {
           $location.path('/auth');
         }
-        return $q.reject(resposta);
+        return $q.reject(response);
       }
 
     }

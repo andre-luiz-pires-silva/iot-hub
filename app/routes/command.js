@@ -1,8 +1,7 @@
 module.exports = function(app) {
   var controller = app.controllers.command;
 
-  app.route('/commands')
-    .get(controller.getCommands)
+  app.route('/commands')  
     .post(controller.saveCommand);
 
   app.route('/commands/:id')

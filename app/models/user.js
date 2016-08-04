@@ -23,6 +23,6 @@ module.exports = function() {
 
   schema.plugin(findOrCreate);
 
-  return mongoose.model('Usuario', schema);
+  return mongoose.model('User', schema);
 
 };
