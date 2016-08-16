@@ -1,22 +1,14 @@
-// app/routes/device.js
-function verificaAutenticacao(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.status('401').json('Não autorizado');
-  }
-}
-
 module.exports = function(app) {
 
   var controller = app.controllers.device;
+  var authController = app.controllers.auth;
 
   app.route('/devices')
-    .get(verificaAutenticacao, controller.getDevices)
-    .post(verificaAutenticacao, controller.saveDevice);
+    .get(authController.checkAuth, controller.getDevices)
+    .post(authController.checkAuth, controller.saveDevice);
 
   app.route('/devices/:id')
-    .get(verificaAutenticacao, controller.getDevice)
-    .delete(verificaAutenticacao, controller.deleteDevice);
+    .get(authController.checkAuth, controller.getDevice)
+    .delete(authController.checkAuth, controller.deleteDevice);
 
 };

@@ -1,5 +1,5 @@
 angular.module('iot')
-  .factory('meuInterceptor', function($location, $q) {
+  .factory('authInterceptor', function($location, $q) {
 
     var interceptor = {
 
