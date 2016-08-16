@@ -1,6 +1,7 @@
 module.exports = function(app) {
 
   var Device = app.models.device;
+  var sanitize = require('mongo-sanitize');
 
   var controller = {};
 
@@ -43,7 +44,7 @@ module.exports = function(app) {
 
   controller.deleteDevice = function(req, res) {
     var userId = req.user._id;
-    var deviceId = req.params.id;
+    var deviceId = sanitize(req.params.id);
 
     Device.remove({_id:deviceId, user:userId}).exec()
     .then(

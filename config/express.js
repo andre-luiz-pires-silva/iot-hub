@@ -1,4 +1,3 @@
-// config/express.js
 var express = require('express');
 
 module.exports = function() {
@@ -9,6 +8,7 @@ module.exports = function() {
   var cookieParser = require('cookie-parser');
   var session = require('express-session');
   var passport = require('passport');
+  var helmet = require('helmet');
 
   // variável de ambiente
   app.set('port', 3000);
@@ -32,10 +32,20 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // app.use(helmet());
+  app.use(helmet.xframe());
+  app.use(helmet.nosniff());
+  app.use(helmet.xssFilter());
+  app.use(helmet.hidePoweredBy({setTo:'PHP 5.5.14'}));
+
   load('models', {cwd: 'app'})
     .then('controllers')
     .then('routes')
     .into(app);
+
+  app.get('*', function(req, res) {
+    res.status(404).render('404');
+  });
 
   return app;
 };

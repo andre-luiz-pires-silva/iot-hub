@@ -1,6 +1,7 @@
 module.exports = function(app) {
 
   var Command = app.models.command;
+  var sanitize = require('mongo-sanitize');
 
   var controller = {};
 
@@ -46,7 +47,7 @@ module.exports = function(app) {
 
   controller.deleteCommand = function(req, res) {
     var userId = req.user._id;
-    var commandId = req.params.id;
+    var commandId = sanitize(req.params.id);
 
     Command.remove({_id:commandId, user:userId}).exec()
     .then(

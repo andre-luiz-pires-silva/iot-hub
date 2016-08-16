@@ -9,7 +9,6 @@ module.exports = function() {
       res.status('401').json('Não autorizado');
     }
   }
-  
 
   return controller;
 };
