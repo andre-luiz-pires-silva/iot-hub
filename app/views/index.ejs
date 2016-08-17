@@ -1,0 +1,95 @@
+<!-- public/index.html -->
+<!doctype html>
+<html>
+  <head>
+    <title>IoT</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+  </head>
+
+  <body ng-app="iot" layout="column" ng-controller="AppController as ac" ng-cloak>
+
+    <md-toolbar layout="row">
+      <md-button class="menu" ng-click="toggle()" hide-gt-sm aria-label="Show User List">
+        <md-icon md-svg-icon="menu" ></md-icon>
+      </md-button>
+      <h1>IoT Hub</h1>
+    </md-toolbar>
+
+    <div flex layout="row">
+
+      <md-sidenav ng-click="toggle()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+
+        <%if (logged == true) { %>
+        <div class="text-right">
+          <p>
+            Logado como: <span id="usuario-logado"><%=loggedUser %><span>
+            <a href="/logout">Sair</a>
+          </p>
+        </div>
+
+        <md-list>
+
+          <md-list-item>
+            <md-button ng-href="#/devices" ng-class="{'selected' : it === ul.selected }">
+              <md-icon class="avatar"></md-icon>
+              Meus Devices
+            </md-button>
+          </md-list-item>
+
+          <md-list-item>
+            <md-button ng-href="#/device" ng-class="{'selected' : it === ul.selected }">
+              <md-icon class="avatar"></md-icon>
+              Adicionar Device
+            </md-button>
+          </md-list-item>
+
+        </md-list>
+
+        <% } else { %>
+          <a href="/auth/github">
+            <h1 id="entrar" class="text-center">Login</h1>
+          </a>
+        <% } %>
+
+      </md-sidenav>
+
+      <md-content flex layout-padding id="content">
+
+        <div ng-view></div>
+
+      </md-content>
+
+    </div>
+
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="vendor/angular-material/angular-material.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/controllers/AppController.js"></script>
+    <script src="js/controllers/DevicesController.js"></script>
+    <script src="js/controllers/DeviceController.js"></script>
+    <script src="js/controllers/CommandController.js"></script>
+    <script src="js/services/REST/DevicesService.js"></script>
+    <script src="js/services/REST/CommandsService.js"></script>
+    <script src="js/services/IOT/CommandRequestController.js"></script>
+    <script src="js/services/InterceptorService.js"></script>
+
+  </body>
+
+</html>

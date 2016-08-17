@@ -3,7 +3,6 @@
 
     var deviceId = $routeParams.deviceId;
 
-    $scope.selectedTab = 0;
     $scope.requestVerbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
     if(deviceId) {
@@ -21,7 +20,6 @@
 
       CommandByDevice.query({deviceId: deviceId}, function(commands) {
         $scope.commands = commands;
-        $scope.selectedTab = 1;
       });
 
     } else {
@@ -33,10 +31,7 @@
 
       $scope.device.$save()
         .then(function() {
-          $mdToast.show($mdToast.simple().textContent('Device cadastrado com sucesso!').position('top'));
-          if(isNew) {
-            $scope.selectedTab = 1;
-          }
+          $mdToast.show($mdToast.simple().textContent('Device cadastrado com sucesso!').position('top'));          
         })
         .catch(function(erro){
           $scope.message = {text: 'Não foi possível salvar'};
