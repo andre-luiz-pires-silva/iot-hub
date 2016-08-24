@@ -20,7 +20,7 @@
         }
       );
 
-    } else if(deviceId) {
+    } else if(deviceId) {      
       Device.get({id: deviceId},
         function(device) {
           $scope.device = device;
