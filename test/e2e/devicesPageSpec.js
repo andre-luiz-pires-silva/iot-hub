@@ -1,11 +1,15 @@
+var DevicesPage = new require('./pages/devicesPage');
+
 describe('Página principal', function() {
 
+  var page = new DevicesPage();
+
   beforeEach(function() {
-    browser.get('http://localhost:3000/#/devices');
+    page.openPage();
   });
 
   it('Deve estar logado', function() {
-    element(by.id('usuario-logado')).getText().then(function(texto) {
+    page.getLoggedUser().then(function(texto) {
       expect(texto.trim().length).toBeGreaterThan(0);
     });
   });
