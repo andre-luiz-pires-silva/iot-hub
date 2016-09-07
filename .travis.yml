@@ -1,27 +1,41 @@
 language: node_js
 node_js:
-  - 0.10
+- 0.1
 notifications:
-  - andre.luiz.pires.silva@gmail.com
+- andre.luiz.pires.silva@gmail.com
 services:
-  - mongodb
+- mongodb
 env:
   global:
-    - NODE_ENV: test
+  - NODE_ENV: test
 addons:
   sauce_connect: true
 before_install:
-  - npm install -g bower@1.3
-  - npm install -g grunt-cli@0.1
-  - npm install -g karma-cli@0.0
-  - npm install -g protractor@1.5
-  - webdriver-manager update
-  - bower install
+- npm install -g bower@1.3
+- npm install -g grunt-cli@0.1
+- npm install -g karma-cli@0.0
+- npm install -g protractor@1.5
+- webdriver-manager update
+- bower install
 before_script:
-  - node test/data.js
-  - grunt
-  - cd dist
+- node test/data.js
+- grunt minifica
 script:
-  - karma start config/karma.config.js --single-run --browsers PhantomJS2
+- karma start config/karma.config.js --single-run --browsers PhantomJS2
 #  - node server &
 #  - protractor config/protractor.js
+before_deploy:
+- git config --global user.email 'travis@travis-ci.com'
+- git config --global user.name 'Travis CI'
+- git checkout $TRAVIS_BRANCH
+- git add --all
+- git commit -am "Travis commit"
+deploy:
+  provider: openshift
+  user: andre.luiz.pires.silva@gmail.com
+  password:
+    secure: wYFm8HI/01MOGuaSB2EcW7t8cDvZ4bCuzAM0LixCAiI+vuez+jQwOeUheAtnrnavC7z27RoqJMOGHTy0u8YqV9u50Imc8cHRVmTmnzLUrRL9/Tw9hXiIkr8tlSsoNzROp6K6mtpqD4PDZvvuDSQuYThokA9wTLcigGIs0ltRqjj0oiOxh1arPfWWSG40W/b2erRj4XktdI5dAbaNLL9HviHq4EwK+trKS/oSGifOBGjbXY5R66O5TGStTvo93hSO8AkI/im5TIK10rPMR528T60kGWgok48zggWC010xczcLfkdNrIOMolQShPhIRWNEG4d6QhZ/yMiiNk3I8fhIUmremNqXNabf++IUGLZE/w7/m1d8cLUDlHwiE2mz4os6rOgmazfQvPW9wYhe8mxoUFKyA4xRuru2jMGwwkV7r0z10CwYKPrFhIPVFLO/w7x4+RtMG+ExroyQDHf/WkRG3GKjCGcdicLD98yEIaLmqPGFLDeJK9+SaN3/RcHkPyAlTSpEGtTPBRMHAgEDDkMM94CoJx2jFfDpeQZ8DEovXc4t/p50U2Vd53JXGZDBga2zm1dvvWiUMdMS8cmKDsJKRFhs90A/zkyl4Lq6IFxNNCrjpxSAzIsL/Bahtt/uSolvQ0jvt0wdEZS9E1w2aJNl1+JBbDggrxeXsrnJjFGcrD4=
+  app: iot
+  domain: iot-alpsoftware.rhcloud.com
+  on:
+    repo: andre-luiz-pires-silva/iot-hub

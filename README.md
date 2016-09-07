@@ -2,6 +2,15 @@
 
 [![Build Status](https://travis-ci.org/andre-luiz-pires-silva/iot-hub.svg?branch=master)](https://travis-ci.org/andre-luiz-pires-silva/iot-hub)
 
+## Run server
+
+To start server, run the following commands
+```
+cd iot
+sh scripts/server.sh
+```
+The application will be available at http://localhost:3000
+
 ## Karma tests
 
 To run with default browser
