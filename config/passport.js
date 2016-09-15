@@ -7,7 +7,13 @@ var config = require('./config')();
 module.exports = function() {
 
   var User = mongoose.model('User');
-  var githubCallback = 'http://' + config.domain + ':' + config.port + '/auth/github/callback';
+
+  var githubCallback;
+  if (config.env == 'production') {
+    githubCallback = 'http://' + config.domain + '/auth/github/callback';
+  } else {
+    githubCallback = 'http://' + config.domain + ':' + config.port + '/auth/github/callback';
+  }
 
   passport.use(new GitHubStrategy({
       clientID: config.clientID,
